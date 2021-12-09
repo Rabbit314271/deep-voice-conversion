@@ -2,7 +2,7 @@
 # !/usr/bin/env python
 
 import tensorflow as tf
-from tensorpack.graph_builder.model_desc import ModelDesc, InputDesc
+from tensorpack.graph_builder.model_desc import ModelDesc
 from tensorpack.tfutils import (
     get_current_tower_context, optimizer, gradproc)
 from tensorpack.tfutils.scope_utils import auto_reuse_variable_scope
@@ -18,8 +18,8 @@ class Net1(ModelDesc):
         pass
 
     def _get_inputs(self):
-        return [InputDesc(tf.float32, (None, None, hp.default.n_mfcc), 'x_mfccs'),
-                InputDesc(tf.int32, (None, None,), 'y_ppgs')]
+        return [tf.TensorSpec(tf.float32, (None, None, hp.default.n_mfcc), 'x_mfccs'),
+                tf.TensorSpec(tf.int32, (None, None,), 'y_ppgs')]
 
     def _build_graph(self, inputs):
         self.x_mfccs, self.y_ppgs = inputs
